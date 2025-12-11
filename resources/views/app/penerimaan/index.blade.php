@@ -1,5 +1,12 @@
 @extends('main.index')
 @section('content')
+    <div class="col-sm-12 col-lg-12" style="text-align: center">
+        <div class="page-header">
+            <div class="page-title">
+                <h4 class="fw-bold py-3" style="font-size: 30px">Penerimaan Barang</h4>
+            </div>
+        </div>
+    </div>
     <div class="col-sm-12">
         <div class="page-header">
             <div class="page-title">

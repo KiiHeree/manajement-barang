@@ -42,7 +42,7 @@ class NotaController extends Controller
 
             $createNota = Nota::create($data);
 
-            if($createNota == 0) {
+            if(!$createNota) {
                 return redirect()->back()->with('error','Gagal membuat nota');
             }
 

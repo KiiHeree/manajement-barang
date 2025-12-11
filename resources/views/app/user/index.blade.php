@@ -1,6 +1,12 @@
 @extends('main.index')
 @section('content')
-    {{-- <h4 class="fw-bold py-3 mb-4">Data Kategori</h4> --}}
+    <div class="col-sm-12 col-lg-12" style="text-align: center">
+        <div class="page-header">
+            <div class="page-title">
+                <h4 class="fw-bold py-3" style="font-size: 30px">Data User</h4>
+            </div>
+        </div>
+    </div>
     <div class="col-sm-12">
         <div class="page-header">
             <div class="page-title">
@@ -31,7 +37,8 @@
                             <td>{{ $u->nama }}</td>
                             <td>{{ $u->email }}</td>
                             <td>{{ $u->role }}</td>
-                            <td><img src="/foto_profile/{{ $u->foto_profile }}" alt="" style="width: 50px; height: 50px;"></td>
+                            <td><img src="/foto_profile/{{ $u->foto_profile }}" alt=""
+                                    style="width: 50px; height: 50px;"></td>
                             <td>
                                 <a href="{{ route('userEdit', $u->id_user) }}" class="btn btn-icon btn-outline-primary">
                                     <i class='bx bx-edit-alt'></i>

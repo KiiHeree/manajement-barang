@@ -1,9 +1,16 @@
 @extends('main.index')
 @section('content')
+    <div class="col-sm-12 col-lg-12" style="text-align: center">
+        <div class="page-header">
+            <div class="page-title">
+                <h4 class="fw-bold py-3" style="font-size: 30px">Pengiriman Barang</h4>
+            </div>
+        </div>
+    </div>
     <div class="col-sm-12">
         <div class="page-header">
             <div class="page-title">
-                <ol class="breadcrumb text-right"> 
+                <ol class="breadcrumb text-right">
                     <li><a href="{{ route('pengirimanNota') }}" class="btn btn-outline-primary">Nota Pengiriman</a></li>
                 </ol>
             </div>
@@ -29,7 +36,7 @@
                             <td>{{ $p->kode_kirim }}</td>
                             <td>{{ $p->user->nama }}</td>
                             <td>{{ $p->tujuan }}</td>
-                            <td><span class="btn btn-outline-warning">{{$p->status}}</span></td>
+                            <td><span class="btn btn-outline-warning">{{ $p->status }}</span></td>
                         </tr>
                     @endforeach
                 </tbody>

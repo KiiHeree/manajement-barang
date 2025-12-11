@@ -51,7 +51,7 @@ class KategoriController extends Controller
 
             $store = Kategori::create($kategori);
 
-            if ($store == 0) {
+            if (!$store) {
                 return redirect()->back()->with('error', 'Gagal Menambah Data Kategori');
             }
 
@@ -103,7 +103,7 @@ class KategoriController extends Controller
             $proses = Kategori::where('id_kategori', $id)->update($dataKategori);
             $newData = (Kategori::where('id_kategori', $id)->first())->toArray();
 
-            if ($proses == 0) {
+            if (!$proses) {
                 return redirect()->back()->with('error', 'Gagal Mengubah Data Kategori');
             }
 
@@ -136,7 +136,7 @@ class KategoriController extends Controller
             $kategoriDel = Kategori::where('id_kategori', $id)->delete();
 
             // Cek apakah data berhasil dihapus atau tidak
-            if ($kategoriDel == 0) {
+            if (!$kategoriDel) {
                 return redirect()->back()->with('error', 'Data gagal dihapus.');
             }
 

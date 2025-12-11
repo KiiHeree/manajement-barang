@@ -53,7 +53,7 @@
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
-    <link rel="stylesheet" href="/assets/vendor/libs/apex-charts/apex-charts.css" />
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <!-- Page CSS -->
 
@@ -65,6 +65,7 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="/assets/js/config.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
   </head>
 
@@ -90,17 +91,17 @@
             <div class="container-xxl flex-grow-1 container-p-y">
 
         @if (Session::has('success'))
-            <div class="alert alert-success alert-dismissible" role="alert">
+<div class="alert alert-success alert-dismissible" id="successAlert" role="alert">
                 {{ Session::get('success') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-        @endif
+@endif
         @if (Session::has('error'))
-            <div class="alert alert-danger alert-dismissible" role="alert">
+<div class="alert alert-danger alert-dismissible" id="errorAlert" role="alert">
                 {{ Session::get('error') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-        @endif
+@endif
             <!-- Content -->
             @yield('content')
             <!-- / Content -->
@@ -122,6 +123,7 @@
     </div>
     <!-- / Layout wrapper -->
     <!-- Core JS -->
+    @yield('js')
     <!-- build:js /assets/vendor/js/core.js -->
     <script src="/assets/vendor/libs/jquery/jquery.js"></script>
     <script src="/assets/vendor/libs/popper/popper.js"></script>
@@ -139,11 +141,30 @@
 
     <!-- Page JS -->
     <script src="/assets/js/dashboards-analytics.js"></script>
-
+    
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
 
-    @yield('js')
+
+    <script>
+        // Cek kalau ada alert sukses
+        var successAlert = document.getElementById('successAlert');
+        if (successAlert) {
+            setTimeout(function() {
+                successAlert.style.display = 'none'; // Sembunyikan alert
+            }, 3000);
+        }
+
+        // Cek kalau ada alert error
+        var errorAlert = document.getElementById('errorAlert');
+        if (errorAlert) {
+            setTimeout(function() {
+                errorAlert.style.display = 'none'; // Sembunyikan alert
+            }, 3000);
+        }
+    </script>
   </body>
+
+  @yield('js')
 </html>

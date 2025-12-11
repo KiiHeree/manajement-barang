@@ -3,7 +3,7 @@
     <div class="col-xxl">
         <div class="card mb-4">
             <div class="card-header d-flex align-items-center justify-content-between">
-                <h5 class="mb-0">Tambah Data Kategori</h5>
+                <h5 class="mb-0">Update Data Kategori</h5>
                 {{-- <small class="text-muted float-end">Tambah</small> --}}
             </div>
             {{-- @if (Session::has('error'))

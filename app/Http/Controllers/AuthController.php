@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Hamcrest\Core\HasToString;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

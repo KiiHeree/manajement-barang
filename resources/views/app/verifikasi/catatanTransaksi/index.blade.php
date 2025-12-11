@@ -1,9 +1,9 @@
 @extends('main.index')
 @section('content')
-    <div class="col-sm-12">
+    <div class="col-sm-12 col-lg-12" style="text-align: center">
         <div class="page-header">
             <div class="page-title">
-                <h4 class="fw-bold py-3 mb-4">Catatan Transaksi</h4>
+                <h4 class="fw-bold py-3 mb-4" style="font-size: 30px">Catatan Transaksi</h4>
             </div>
         </div>
     </div>

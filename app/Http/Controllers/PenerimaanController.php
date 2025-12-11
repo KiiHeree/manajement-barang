@@ -55,6 +55,15 @@ class PenerimaanController extends Controller
                 'asal' => 'required',
             ]);
 
+            // cek stok
+
+            for ($i = 0; $i < count($request->barang_id); $i++) {
+                $stok = Barang::where('id_barang',$request->barang_id[$i])->first();
+                if($stok['stok'] <= 0 || $stok['stok'] < $request->jumlah[$i]) {
+                    return redirect()->back()->with('error', 'Stok tidak mencukupi untuk transaksi ini');
+                }
+            }
+
             $catatan_transaksi = new CatatanTransaksi();
             $catatan_transaksi->tipe = 'PENERIMAAN';
             $catatan_transaksi->save();
@@ -67,7 +76,7 @@ class PenerimaanController extends Controller
             $penerimaan->status = 'PENDING';
             $penerimaan->save();
             // validator
-            if ($catatan_transaksi && $penerimaan == 0) {
+            if ($catatan_transaksi && $penerimaan === false) {
                 return redirect()->back()->with('error', 'Gagal membuat data penerimaan');
             }
 
@@ -92,13 +101,13 @@ class PenerimaanController extends Controller
                     'created_at' => now(),
                 ]);
                 // validator
-                if ($detail_penerimaan == 0) {
+                if (!$detail_penerimaan) {
                     return redirect()->back()->with('error', 'Gagal membuat data detail penerimaan');
                 }
 
                 $nota = Nota::where([['user_id', Auth::user()->id_user], ['barang_id', $request->barang_id[$i]]])->delete();
                 // validator
-                if ($nota == 0) {
+                if (!$nota) {
                     return redirect()->back()->with('error', 'Gagal menghapus data nota penerimaan');
                 }
             }

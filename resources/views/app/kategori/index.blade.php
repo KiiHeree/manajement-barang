@@ -1,6 +1,13 @@
 @extends('main.index')
 @section('content')
     {{-- <h4 class="fw-bold py-3 mb-4">Data Kategori</h4> --}}
+    <div class="col-sm-12 col-lg-12" style="text-align: center">
+        <div class="page-header">
+            <div class="page-title">
+                <h4 class="fw-bold py-3" style="font-size: 30px">Data Kategori</h4>
+            </div>
+        </div>
+    </div>
     <div class="col-sm-12">
         <div class="page-header">
             <div class="page-title">

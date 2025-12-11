@@ -64,7 +64,7 @@ class BarangController extends Controller
 
             $store = Barang::create($barang);
 
-            if ($store == 0) {
+            if (!$store) {
                 return redirect()->back()->with('error', 'Gagal Menambah Data Barang');
             }
 
@@ -77,7 +77,7 @@ class BarangController extends Controller
             return redirect()->route('barangIndex')->with('success', 'Berhasil menambah data barang');
         } catch (\Exception $e) {
             // Kalau ada error dari database
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat menambah barang.');
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menambah barang.' . $e);
         }
     }
 
@@ -119,7 +119,7 @@ class BarangController extends Controller
             }
 
             $update = Barang::where('id_barang', $id)->update($dataBarang);
-            if ($update == 0) {
+            if (!$update) {
                 return redirect()->back()->with('error', 'Gagal mengubah Data Barang');
             }
 
@@ -141,24 +141,24 @@ class BarangController extends Controller
      */
     public function destroy(string $id)
     {
-        try{
-        $deleteFoto = Barang::where('id_barang', $id)->first();
-        $oldData = (Barang::where('id_barang', $id)->first())->toArray();
-        File::delete('foto_barang/' . $deleteFoto->foto_barang);
+        try {
+            $deleteFoto = Barang::where('id_barang', $id)->first();
+            $oldData = (Barang::where('id_barang', $id)->first())->toArray();
+            File::delete('foto_barang/' . $deleteFoto->foto_barang);
 
-        $delete = Barang::where('id_barang', $id)->delete();
+            $delete = Barang::where('id_barang', $id)->delete();
 
-            if ($delete == 0) {
+            if (!$delete) {
                 return redirect()->back()->with('error', 'Gagal menghapus Data Barang');
             }
 
-        $this->logActivity(
-            Auth::user()->id_user,
-            'Menghapus Barang',
-            'Menghapus Data Barang ' . $oldData['nama_barang']
-        );
+            $this->logActivity(
+                Auth::user()->id_user,
+                'Menghapus Barang',
+                'Menghapus Data Barang ' . $oldData['nama_barang']
+            );
 
-        return redirect()->back()->with('success','Berhasil menghapus data barang');
+            return redirect()->back()->with('success', 'Berhasil menghapus data barang');
         } catch (\Exception $e) {
             // Kalau ada error dari database 
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus barang.');

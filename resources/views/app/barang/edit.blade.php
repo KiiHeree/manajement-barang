@@ -35,7 +35,7 @@
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label" for="basic-default-name">Stok</label>
                         <div class="col-sm-10">
-                            <input type="text" disabled class="form-control" id="basic-default-name" name="stok"
+                            <input type="text" class="form-control" id="basic-default-name" name="stok"
                                 placeholder="Stok" value="{{ $barangEdit->stok }}" />
                         </div>
                     </div>

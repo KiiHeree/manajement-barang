@@ -73,17 +73,17 @@
       <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">
           @if (Session::has('success'))
-            <div class="alert alert-success alert-dismissible" role="alert">
+<div class="alert alert-success alert-dismissible" id="successAlert" role="alert">
                 {{ Session::get('success') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-        @endif
+@endif
       @if (Session::has('error'))
-            <div class="alert alert-danger alert-dismissible" role="alert">
+<div class="alert alert-danger alert-dismissible" id="errorAlert" role="alert">
                 {{ Session::get('error') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-        @endif
+@endif
           <!-- Register -->
           <div class="card">
             <div class="card-body">
@@ -204,6 +204,24 @@
 
     <!-- Main JS -->
     <script src="assets/js/main.js"></script>
+
+    <script>
+        // Cek kalau ada alert sukses
+        var successAlert = document.getElementById('successAlert');
+        if (successAlert) {
+            setTimeout(function() {
+                successAlert.style.display = 'none'; // Sembunyikan alert
+            }, 3000);
+        }
+
+        // Cek kalau ada alert error
+        var errorAlert = document.getElementById('errorAlert');
+        if (errorAlert) {
+            setTimeout(function() {
+                errorAlert.style.display = 'none'; // Sembunyikan alert
+            }, 3000);
+        }
+    </script>
 
     <!-- Page JS -->
 

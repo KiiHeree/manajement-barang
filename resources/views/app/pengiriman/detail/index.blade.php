@@ -12,23 +12,26 @@
             <div class="row mb-3">
                 <label class="col-sm-2 col-form-label" for="basic-default-name">Kode Kirim</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="basic-default-name" value="{{$data_pengiriman->kode_kirim}}" disabled/>
+                    <input type="text" class="form-control" id="basic-default-name"
+                        value="{{ $data_pengiriman->kode_kirim }}" disabled />
                 </div>
             </div>
             <div class="row mb-3">
                 <label class="col-sm-2 col-form-label" for="basic-default-name">User</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="basic-default-name" value="{{$data_pengiriman->user->nama}}" disabled/>
+                    <input type="text" class="form-control" id="basic-default-name"
+                        value="{{ $data_pengiriman->user->nama }}" disabled />
                 </div>
             </div>
             <div class="row mb-3">
                 <label class="col-sm-2 col-form-label" for="basic-default-name">Tujuan</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="basic-default-name" value="{{$data_pengiriman->tujuan}}" disabled/>
+                    <input type="text" class="form-control" id="basic-default-name"
+                        value="{{ $data_pengiriman->tujuan }}" disabled />
                 </div>
             </div>
             <div class="row mb-3">
-                <span class="btn btn-primary">{{$data_pengiriman->status}}</span>
+                <span class="btn btn-primary">{{ $data_pengiriman->status }}</span>
             </div>
         </div>
     </div>
@@ -56,5 +59,12 @@
                 </tbody>
             </table>
         </div>
+    </div>
+    <div>
+        <button class="btn btn-primary mt-4" 
+            onclick="if (document.referrer !== '') { window.history.back(); } 
+        else {
+            window.location.href = '/'; }">Kembali
+        </button>
     </div>
 @endsection

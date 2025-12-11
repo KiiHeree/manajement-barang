@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LogActivityController;
 use App\Http\Controllers\NotaController;
 use App\Http\Controllers\PenerimaanController;
@@ -23,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/', [DashboardController::class, 'index'], function () {
     return view('app.dashboard.index');
 })->middleware('auth')->name('dashboard');
 
@@ -59,36 +61,40 @@ Route::prefix('User')->group(function () {
     Route::get('/userDelete/{id}', [UserController::class, "destroy"])->name('userDelete');
 });
 
-Route::prefix('Pengiriman')->group(function() {
-    Route::get('/pengirimanIndex',[PengirimanController::class,'index'])->name('pengirimanIndex');
-    Route::get('/pengirimanNota',[PengirimanController::class,'create'])->name('pengirimanNota');
-    Route::get('/pengirimanDetail/{id}',[PengirimanController::class,'show'])->name('pengirimanDetail');
-    Route::post('/pengirimanStore',[PengirimanController::class,'store'])->name('pengirimanStore');
+Route::prefix('Pengiriman')->group(function () {
+    Route::get('/pengirimanIndex', [PengirimanController::class, 'index'])->name('pengirimanIndex');
+    Route::get('/pengirimanNota', [PengirimanController::class, 'create'])->name('pengirimanNota');
+    Route::get('/pengirimanDetail/{id}', [PengirimanController::class, 'show'])->name('pengirimanDetail');
+    Route::post('/pengirimanStore', [PengirimanController::class, 'store'])->name('pengirimanStore');
 });
-Route::prefix('Penerimaan')->group(function() {
-    Route::get('/penerimaanIndex',[PenerimaanController::class,'index'])->name('penerimaanIndex');
-    Route::get('/penerimaanNota',[PenerimaanController::class,'create'])->name('penerimaanNota');
-    Route::get('/penerimaanDetail/{id}',[PenerimaanController::class,'show'])->name('penerimaanDetail');
-    Route::post('/penerimaanStore',[PenerimaanController::class,'store'])->name('penerimaanStore');
-});
-
-Route::prefix('Nota')->group(function(){
-    Route::post('/notaStore',[NotaController::class,'store'])->name('notaStore');
-    Route::get('/notaDestroy',[NotaController::class,'destroy'])->name('notaDestroy');
+Route::prefix('Penerimaan')->group(function () {
+    Route::get('/penerimaanIndex', [PenerimaanController::class, 'index'])->name('penerimaanIndex');
+    Route::get('/penerimaanNota', [PenerimaanController::class, 'create'])->name('penerimaanNota');
+    Route::get('/penerimaanDetail/{id}', [PenerimaanController::class, 'show'])->name('penerimaanDetail');
+    Route::post('/penerimaanStore', [PenerimaanController::class, 'store'])->name('penerimaanStore');
 });
 
-Route::prefix('LogActivity')->group(function(){
-    Route::get('/logActivity',[LogActivityController::class,'index'])->name('logActivityIndex');
+Route::prefix('Nota')->group(function () {
+    Route::post('/notaStore', [NotaController::class, 'store'])->name('notaStore');
+    Route::get('/notaDestroy', [NotaController::class, 'destroy'])->name('notaDestroy');
 });
 
-Route::prefix('RiwayatStok')->group(function(){
-    Route::get('/riwayatStok',[RiwayatStokController::class,'index'])->name('riwayatIndex');
+Route::prefix('LogActivity')->group(function () {
+    Route::get('/logActivity', [LogActivityController::class, 'index'])->name('logActivityIndex');
 });
 
-Route::prefix('Verifikasi')->group(function(){
-    Route::get('/verifikasiPenerimaan',[VerifikasiController::class,'indexPenerimaan'])->name('verifikasiPenerimaan');
-    Route::get('/verifikasiPengiriman',[VerifikasiController::class,'indexPengiriman'])->name('verifikasiPengiriman');
-    Route::get('/catatanTransaksi',[VerifikasiController::class,'indexCatatanTransaksi'])->name('catatanTransaksi');
-    Route::POST('/updatePenerimaan/{id}',[VerifikasiController::class,'updatePenerimaan'])->name('updatePenerimaan');
-    Route::POST('/updatePengiriman/{id}',[VerifikasiController::class,'updatePengiriman'])->name('updatePengiriman');
+Route::prefix('RiwayatStok')->group(function () {
+    Route::get('/riwayatStok', [RiwayatStokController::class, 'index'])->name('riwayatIndex');
+});
+
+Route::prefix('Laporan')->group(function () {
+    Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan');
+});
+
+Route::prefix('Verifikasi')->group(function () {
+    Route::get('/verifikasiPenerimaan', [VerifikasiController::class, 'indexPenerimaan'])->name('verifikasiPenerimaan');
+    Route::get('/verifikasiPengiriman', [VerifikasiController::class, 'indexPengiriman'])->name('verifikasiPengiriman');
+    Route::get('/catatanTransaksi', [VerifikasiController::class, 'indexCatatanTransaksi'])->name('catatanTransaksi');
+    Route::POST('/updatePenerimaan/{id}', [VerifikasiController::class, 'updatePenerimaan'])->name('updatePenerimaan');
+    Route::POST('/updatePengiriman/{id}', [VerifikasiController::class, 'updatePengiriman'])->name('updatePengiriman');
 });

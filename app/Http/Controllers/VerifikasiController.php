@@ -76,7 +76,7 @@ class VerifikasiController extends Controller
             }
             $updateStatus->save();
 
-            if ($updateStatus == 0) {
+            if (!$updateStatus) {
                 return redirect()->back()->with('error', 'Gagal Me-' . $updateStatus['status'] . ' Penerimaan');
             }
 
@@ -89,11 +89,11 @@ class VerifikasiController extends Controller
                         'barang_id' => $dataDetail[$i]['barang_id'],
                         'type' => 'IN',
                         'jumlah' => $dataDetail[$i]['jumlah'],
-                        'deskripsi' => 'Penerimaan Barang Sejumlah = ' . $dataDetail[$i]['jumlah'],
+                        'deskripsi' => 'Penerimaan Barang Sejumlah = ' . $dataDetail[$i]['jumlah'] . ' Dari ' . $dataPenerimaan['asal'],
                         'created_at' => now(),
                     ]);
 
-                    if ($riwayat_stok == 0) {
+                    if (!$riwayat_stok) {
                         return redirect()->back()->with('error', 'Ada kesalahan saat menambah data riwayat stok');
                     }
 
@@ -101,7 +101,7 @@ class VerifikasiController extends Controller
                     $updateStok['stok'] = $updateStok['stok'] + $dataDetail[$i]['jumlah'];
                     $updateStok->save();
 
-                    if ($updateStok == 0) {
+                    if (!$updateStok) {
                         return redirect()->back()->with('error', 'Ada kesalahan saat mengubah data stok barang');
                     }
                 }
@@ -140,7 +140,7 @@ class VerifikasiController extends Controller
             }
             $updateStatus->save();
             //validator
-            if ($updateStatus == 0) {
+            if (!$updateStatus) {
                 return redirect()->back()->with('error', 'Gagal Me-' . $updateStatus['status'] . ' Pengiriman');
             }
 
@@ -148,23 +148,24 @@ class VerifikasiController extends Controller
             $dataDetail = PengirimanDetail::where('kirim_id', $id)->get();
             if ($request->status == 'VERIFIED') {
                 for ($i = 0; $i < count($dataDetail); $i++) {
+                    //riwayat stok
                     $riwayat_stok = DB::table('riwayat_stok')->insert([
                         'user_id' => $dataPengiriman['user_id'],
                         'barang_id' => $dataDetail[$i]['barang_id'],
                         'type' => 'OUT',
                         'jumlah' => $dataDetail[$i]['jumlah'],
-                        'deskripsi' => 'Pengiriman Barang Sejumlah = ' . $dataDetail[$i]['jumlah'],
+                        'deskripsi' => 'Pengiriman Barang Sejumlah = ' . $dataDetail[$i]['jumlah'] . ' Tujuan ' . $dataPengiriman['tujuan'],
                         'created_at' => now(),
                     ]);
                     //validator
-                    if ($riwayat_stok == 0) {
+                    if (!$riwayat_stok) {
                         return redirect()->back()->with('error', 'Ada kesalahan saat menambah data riwayat stok');
                     }
                     $updateStok = Barang::where('id_barang', $dataDetail[$i]['barang_id'])->first();
                     $updateStok['stok'] = $updateStok['stok'] - $dataDetail[$i]['jumlah'];
                     $updateStok->save();
                     //validator
-                    if ($updateStok == 0) {
+                    if (!$updateStok) {
                         return redirect()->back()->with('error', 'Ada kesalahan saat mengubah data stok barang');
                     }
                 }

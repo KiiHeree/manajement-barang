@@ -57,6 +57,15 @@ class PengirimanController extends Controller
 
             ]);
 
+            // cek stok
+
+            for ($i = 0; $i < count($request->barang_id); $i++) {
+                $stok = Barang::where('id_barang',$request->barang_id[$i])->first();
+                if($stok['stok'] <= 0 || $stok['stok'] < $request->jumlah[$i]) {
+                    return redirect()->back()->with('error', 'Stok tidak mencukupi untuk transaksi ini');
+                }
+            }
+
             $catatan_transaksi = new CatatanTransaksi();
             $catatan_transaksi->tipe = 'PENGIRIMAN';
             $catatan_transaksi->save();
@@ -70,7 +79,7 @@ class PengirimanController extends Controller
             $pengiriman->save();
 
             // validator
-            if ($catatan_transaksi && $pengiriman == 0) {
+            if ($catatan_transaksi && $pengiriman === false) {
                 return redirect()->back()->with('error', 'Gagal membuat data pengiriman');
             }
 
@@ -93,13 +102,14 @@ class PengirimanController extends Controller
                     'jumlah' => $request->jumlah[$i],
                     'created_at' => now(),
                 ]);
-                //validator
-                if ($detail_pengiriman == 0) {
+                // validator
+                if (!$detail_pengiriman) {
                     return redirect()->back()->with('error', 'Gagal membuat data detail pengiriman');
                 }
 
                 $nota = Nota::where([['user_id', Auth::user()->id_user], ['barang_id', $request->barang_id[$i]]])->delete();
-                if ($nota == 0) {
+                // validator
+                if (!$nota) {
                     return redirect()->back()->with('error', 'Gagal menghapus data nota pengiriman');
                 }
             }

@@ -25,7 +25,7 @@
                 </thead>
                 <tbody>
                     @foreach ($dataPenerimaan as $p)
-                        <tr>
+                        <tr  onclick="window.location='{{ route('penerimaanDetail', $p->id_terima) }}'">
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $p->kode_terima }}</td>
                             <td>{{ $p->user->nama }}</td>

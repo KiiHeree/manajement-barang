@@ -66,7 +66,7 @@ class UserController extends Controller
 
             $store = User::create($user);
 
-            if ($store == 0) {
+            if (!$store) {
                 return redirect()->back()->with('error', 'Gagal Menambah Data user');
             }
 
@@ -134,7 +134,7 @@ class UserController extends Controller
 
             $updateUser->save();
 
-            if ($updateUser == 0) {
+            if (!$updateUser) {
                 return redirect()->back()->with('error', 'Gagal mengubah Data user');
             }
 
@@ -163,7 +163,7 @@ class UserController extends Controller
             File::delete('foto_profile/' . $deleteFoto->foto_barang);
 
             $delete = User::where('id_user', $id)->delete();
-            if ($delete == 0) {
+            if (!$delete) {
                 return redirect()->back()->with('error', 'Gagal menghapus data user');
             }
 
